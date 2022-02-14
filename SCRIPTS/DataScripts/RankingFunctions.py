@@ -32,14 +32,15 @@ def filter_date(df, date_min, date_max):
 def seconds_to_format(value):
     sec = timedelta(seconds=value)
     d = datetime(1, 1, 1) + sec
-    chain = "%dj %dh %dm %ds" % (d.day - 1, d.hour, d.minute, d.second)
-    return chain
 
-
-def seconds_to_format2(value):
-    sec = timedelta(seconds=value)
-    d = datetime(1, 1, 1) + sec
-    chain = "%dh %dm %ds" % (d.hour, d.minute, d.second)
+    if value < 60:
+        chain = "%ds" % (d.second)
+    elif value < 3600:
+        chain = "%dm %ds" % (d.minute, d.second)
+    elif value < 216000:
+        chain = "%dh %dm %ds" % (d.hour, d.minute, d.second)
+    else:
+        chain = "%dj %dh %dm %ds" % (d.day - 1, d.hour, d.minute, d.second)
     return chain
 
 
@@ -92,7 +93,7 @@ def artist_song_ranking(df, artist, h_min, h_max, date_min, date_max):
     new_df = df_artist.groupby(['Track', 'Album'], sort=True)["Duration"].sum().reset_index()
     final_rank = new_df.sort_values(by=['Duration'], ascending=[False])[0:20]
 
-    final_rank["Duration"] = final_rank["Duration"].apply(seconds_to_format2)
+    final_rank["Duration"] = final_rank["Duration"].apply(seconds_to_format)
     return final_rank
 
 
@@ -112,7 +113,7 @@ def artist_through_time(df, artist, h_min, h_max, date_min, date_max):
     final_table = pd.merge(left=left_table, right=new_df, how="left", on=['Date'])
 
     final_table.fillna(0, inplace=True)
-    final_table["DurationStyle"] = final_table["Duration"].apply(seconds_to_format2)
+    final_table["DurationStyle"] = final_table["Duration"].apply(seconds_to_format)
     return final_table
 
 
@@ -120,6 +121,6 @@ def clock_graph_dataset(df, date_min, date_max):
     df_final = filter_date(df, date_min=date_min, date_max=date_max)
 
     new_df = df_final.groupby(['Hour'])["Duration"].sum().reset_index()
-    new_df["DurationStyle"] = new_df["Duration"].apply(seconds_to_format2)
+    new_df["DurationStyle"] = new_df["Duration"].apply(seconds_to_format)
     new_df["Hour"] = new_df["Hour"].astype(str)
     return new_df

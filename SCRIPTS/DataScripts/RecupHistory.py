@@ -2,10 +2,6 @@ import pandas as pd
 import json
 import glob
 
-"""
-LIBRARY UPLOAD
-"""
-
 PATH = "DATA/my_spotify_data/MyData/"
 
 
