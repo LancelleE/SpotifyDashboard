@@ -15,11 +15,13 @@ def HomePage():
     homepage = html.Div(children=[
         dbc.Row(
             [
-                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2.3),
-                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2.3),
-                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2.3),
-                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2.3),
-                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2.3)
+                dbc.Col(html.Div(), width = 1),
+                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2),
+                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2),
+                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2),
+                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2),
+                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2),
+                dbc.Col(html.Div(), width=1)
             ]
         )
 
