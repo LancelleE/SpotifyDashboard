@@ -8,13 +8,12 @@ Tableaux : Classement des chansons, artistes, albums.
 """
 import dash_bootstrap_components as dbc
 from dash import html
-from Components.DashCards import CreateCards
-from Components.Navbar import create_navbar
+from SCRIPTS.Dash.Components.DashCards import CreateCards
+from SCRIPTS.Dash.Components.Navbar import create_navbar
 
 
 def HomePage():
     homepage = html.Div(children=[
-        create_navbar(),
         dbc.Row(
             [
                 dbc.Col(html.Div(), width=1),
@@ -31,11 +30,10 @@ def HomePage():
     return homepage
 
 
-nav = create_navbar()
-header = HomePage()
-
-
 def create_page_home():
+    nav = create_navbar()
+    header = HomePage()
+
     layout = html.Div([
         nav,
         header,
