@@ -8,20 +8,36 @@ Tableaux : Classement des chansons, artistes, albums.
 """
 import dash_bootstrap_components as dbc
 from dash import html
-from SCRIPTS.Dash.Components.DashCards import CreateCards
+from Components.DashCards import CreateCards
+from Components.Navbar import create_navbar
 
 
 def HomePage():
     homepage = html.Div(children=[
+        create_navbar(),
         dbc.Row(
             [
-                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2.3),
-                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2.3),
-                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2.3),
-                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2.3),
-                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2.3)
+                dbc.Col(html.Div(), width=1),
+                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2),
+                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2),
+                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2),
+                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2),
+                dbc.Col(CreateCards('test', 'test', 'test', 'primary'), width=2),
+                dbc.Col(html.Div(), width=1)
             ]
         )
 
     ])
     return homepage
+
+
+nav = create_navbar()
+header = HomePage()
+
+
+def create_page_home():
+    layout = html.Div([
+        nav,
+        header,
+    ])
+    return layout
